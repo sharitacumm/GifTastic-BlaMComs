@@ -5,8 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>BlaMComs</title>
+    <style type="text/css">
+        button,
+        div,
+        form,
+        input {
+          margin: 10px;
+        }
+      </style>
 </head>
 <body>
+    <div class="container">
+        <h1>BlaMComs</h1>
+
     <div id="gifbuttons"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -24,7 +35,7 @@
             "redd foxx",
             "paul mooney",
         ]
-    //Creating  for loop for each element in the Array and adding buttons for each using JQuery
+    //Create a for loop for each element in the Array and adding buttons for each using JQuery
             
         for (var i = 0; i<topics.length; i++){
             console.log(topics[i]);
