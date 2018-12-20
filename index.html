@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BlaMComs</title>
+</head>
+<body>
+    <div id="gifbuttons"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    //Creating  an array for my variable
+            var topics = [
+            "eddie murphy",
+            "jamie fox", 
+            "robin harris", 
+            "martin lawrence",
+            "dave chappelle",
+            "kevin hart",
+            "bernie mac",
+            "richard pryor",
+            "redd foxx",
+            "paul mooney",
+        ]
+    //Creating  for loop for each element in the Array and adding buttons for each using JQuery
+            
+        for (var i = 0; i<topics.length; i++){
+            console.log(topics[i]);
+            var newButton = $("<button>");
+            newButton.text(topics[i]); 
+            $("#gifbuttons").append(newButton)
+        }
+
+    </script>  
+
+</body>
+</html>
+
