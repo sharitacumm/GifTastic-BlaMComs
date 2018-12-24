@@ -74,14 +74,19 @@
                 console.log("hello");
                 var gifbuttons = $("#blamcom-input").val().trim();
 
-                //Add a Comedian from the text box to the array
-                topics.push(gifbuttons);
-
+                //Add a catch for blanks
+                if (gifbuttons =="") {
+                    alert("Field cannot be blank");
+                }
+                else {
+                    topics.push(gifbuttons);
+                }            
+                       
                 renderButtons();
             });
-
+            renderButtons();
         </script>
-
+    </div>
 </body>
 
 </html>
