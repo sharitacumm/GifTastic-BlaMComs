@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>BlaMComs</title>
     <style type="text/css">
         button,
@@ -33,8 +34,6 @@
 
         <!-- Comedians will Get Dumped Here -->
         <div id="gifbuttons"></div>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script type="text/javascript">
 
             //Create an array for my variable
@@ -51,8 +50,9 @@
                 "paul mooney",
                 "joe torry",
                 "steve harvey",
-            ]
+            ];
             //Function for displaying data
+            //renderButtons();
             function renderButtons() {
 
                 //Delete gifbuttons prior to adding new buttons
@@ -61,19 +61,24 @@
                 //Create a for loop for each element in the Array and adding buttons for each using JQuery            
                 for (var i = 0; i < topics.length; i++) {
                     console.log(topics[i]);
+
                     var newButton = $("<button>");
+                    newButton.addClass("Comedian");
                     newButton.text(topics[i]);
                     $("#gifbuttons").append(newButton);
                 }
             }
-            renderButtons();
-    // $("add-gifbuttons").on("click", function(event){
-    // event.preventDefault();
+            //Initiates the event when the button is clicked      
+            $("#add-blamcom").on("click", function (event) {
+                event.preventDefault();
+                console.log("hello");
+                var gifbuttons = $("#blamcom-input").val().trim();
 
-    // var gifbuttons = $("topics-input").val().trim();
+                //Add a Comedian from the text box to the array
+                topics.push(gifbuttons);
 
-    // gifbuttons.push(gifbutton);
-
+                renderButtons();
+            });
 
         </script>
 
