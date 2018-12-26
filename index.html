@@ -51,8 +51,29 @@
                 "joe torry",
                 "steve harvey",
             ];
-            //Function for displaying data
-            //renderButtons();
+            function displayComicInfo() {
+                var comedian = $(this).attr("data-name");
+                var queryURL = "http://api.giphy.com/v1/gifs/trending?tag=black+male+comedians&api_key=IZ0msH99Ew4ndY9gtQ2Rci0v4PrcOCxc&limit=10";
+
+                //Create an AJAX call to retrieve images
+                $.ajax({
+                 url: queryURL,
+                 method: "GET"   
+
+                //Create a promise to wait for a response
+                }).then(function(response) {
+                                       
+                    var comicDiv = $("<div class='Comedian'>");
+                    var rating = response.Rated;
+                    var pOne = $("<p>").text("Rating: " + rating);
+                    comicDiv.append(pOne);
+                    var imgURL = response.data.image_original_url;
+                    var image = $("<img>").attr("src",imgURL);
+                    comicDiv.append(image);
+                    $("#gifbuttons").prepend(comicDiv);                   
+                });
+            }
+            //Function for displaying data            
             function renderButtons() {
 
                 //Delete gifbuttons prior to adding new buttons
@@ -64,6 +85,7 @@
 
                     var newButton = $("<button>");
                     newButton.addClass("Comedian");
+                    newButton.attr("data-name", topics[i]);
                     newButton.text(topics[i]);
                     $("#gifbuttons").append(newButton);
                 }
@@ -83,7 +105,9 @@
                 }            
                        
                 renderButtons();
-            });
+            })
+            $(document).on("click", ".Comedian", displayComicInfo);
+            
             renderButtons();
         </script>
     </div>
