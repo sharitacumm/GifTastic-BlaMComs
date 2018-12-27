@@ -52,25 +52,45 @@
                 "steve harvey",
             ];
             function displayComicInfo() {
-                var comedian = $(this).attr("data-name");
-                var queryURL = "http://api.giphy.com/v1/gifs/trending?tag=black+male+comedians&api_key=IZ0msH99Ew4ndY9gtQ2Rci0v4PrcOCxc&limit=10";
-
+                var buttonText = $(this).attr("data-name");                
+                var queryURL = "https://api.giphy.com/v1/gifs/search?q=$" + buttonText + "&api_key=IZ0msH99Ew4ndY9gtQ2Rci0v4PrcOCxc&limit=10"; 
+                
                 //Create an AJAX call to retrieve images
                 $.ajax({
                  url: queryURL,
-                 method: "GET"   
-
+                 method: "GET"
+                  
                 //Create a promise to wait for a response
                 }).then(function(response) {
-                                       
-                    var comicDiv = $("<div class='Comedian'>");
-                    var rating = response.Rated;
-                    var pOne = $("<p>").text("Rating: " + rating);
-                    comicDiv.append(pOne);
-                    var imgURL = response.data.image_original_url;
-                    var image = $("<img>").attr("src",imgURL);
-                    comicDiv.append(image);
-                    $("#gifbuttons").prepend(comicDiv);                   
+                    console.log('response is', response);
+
+                    // each method will iterate through the array like a for loop, but with cleaner syntax
+                    $.each(response.data, function(index, value) {
+
+                        var comicDiv = $("<div class='Comedian'>");
+                        //var rating = response.Rated;
+                        var rating = value.rating;
+                        console.log(rating);
+                        var pOne = $("<p>").text("Rating: " + rating);
+                        comicDiv.append(pOne);
+                        //var imgURL = response.data.image_original_url;
+                        console.log(value.images.fixed_height_still.url);
+                        imgURL = value.images.fixed_height_still.url
+                        var image = $("<img>").attr("src",imgURL);
+                        comicDiv.append(image);
+                        $("#gifbuttons").prepend(comicDiv);
+
+                        // var comicDiv = $("<div class='Comedian'>");
+                        // var rating = response.Rated;
+                        // var pOne = $("<p>").text("Rating: " + rating);
+                        // comicDiv.append(pOne);
+                        // var imgURL = response.data.image_original_url;
+                        // var image = $("<img>").attr("src",imgURL);
+                        // comicDiv.append(image);
+                        // $("#gifbuttons").prepend(comicDiv);
+                        
+                   });
+
                 });
             }
             //Function for displaying data            
