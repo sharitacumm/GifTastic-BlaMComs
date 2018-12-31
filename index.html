@@ -33,7 +33,7 @@
         </form>
 
         <!-- Comedians will Get Dumped Here -->
-        <div id="gifbuttons"></div>
+        <div id="gifs"></div>
         <script type="text/javascript">
 
             //Create an array for my variable
@@ -67,28 +67,24 @@
                     // each method will iterate through the array like a for loop, but with cleaner syntax
                     $.each(response.data, function(index, value) {
 
-                        var comicDiv = $("<div class='Comedian'>");
-                        //var rating = response.Rated;
+                        var comicDiv = $("<div>");                        
                         var rating = value.rating;
                         console.log(rating);
+
                         var pOne = $("<p>").text("Rating: " + rating);
                         comicDiv.append(pOne);
-                        //var imgURL = response.data.image_original_url;
                         console.log(value.images.fixed_height_still.url);
+
                         imgURL = value.images.fixed_height_still.url
                         var image = $("<img>").attr("src",imgURL);
-                        comicDiv.append(image);
-                        $("#gifbuttons").prepend(comicDiv);
+                        image.addClass('comedianGif')
+                        image.attr('data-still', value.images.fixed_height_still.url);
+image.attr('data-animate', value.images.fixed_height.url);
+image.attr('data-state', 'animate')
 
-                        // var comicDiv = $("<div class='Comedian'>");
-                        // var rating = response.Rated;
-                        // var pOne = $("<p>").text("Rating: " + rating);
-                        // comicDiv.append(pOne);
-                        // var imgURL = response.data.image_original_url;
-                        // var image = $("<img>").attr("src",imgURL);
-                        // comicDiv.append(image);
-                        // $("#gifbuttons").prepend(comicDiv);
-                        
+                        comicDiv.append(image);
+                        $("#gifs").prepend(comicDiv);
+                                             
                    });
 
                 });
@@ -104,29 +100,44 @@
                     console.log(topics[i]);
 
                     var newButton = $("<button>");
-                    newButton.addClass("Comedian");
+                    newButton.addClass("comedian");
                     newButton.attr("data-name", topics[i]);
                     newButton.text(topics[i]);
-                    $("#gifbuttons").append(newButton);
+                    $("#gifbuttons").prepend(newButton);
                 }
             }
             //Initiates the event when the button is clicked      
             $("#add-blamcom").on("click", function (event) {
                 event.preventDefault();
                 console.log("hello");
-                var gifbuttons = $("#blamcom-input").val().trim();
+                var textForButton = $("#blamcom-input").val().trim();
 
                 //Add a catch for blanks
-                if (gifbuttons =="") {
+                if (textForButton =="") {
                     alert("Field cannot be blank");
                 }
                 else {
-                    topics.push(gifbuttons);
+                    topics.push(textForButton);
                 }            
                        
                 renderButtons();
             })
-            $(document).on("click", ".Comedian", displayComicInfo);
+            $(document).on("click", ".comedian", displayComicInfo);
+            $(document).on("click",".comedianGif", function() {
+      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+      var state = $(this).attr("data-state");
+      // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+      // Then, set the image's data-state to animate
+      // Else set src to the data-still value
+      if (state === "still") {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+      } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+      }
+    });
+
             
             renderButtons();
         </script>
